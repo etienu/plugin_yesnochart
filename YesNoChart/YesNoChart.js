@@ -35,13 +35,8 @@ var ync_fadeIn = function(node, duration) {
 };
 
 //------------------------------------------------
-// 引用元
-// 【診断に使える】YES・NOチャートをWordPressで作る
-// https://ponhiro.com/yesno-chart/
-//------------------------------------------------
 var btn = document.querySelectorAll('.yn-chart a');
 if (btn && 0 < btn.length) {
-    //console.log(" : ael_yesno_chart : [ load ] " + btn.length );
     // .yn-chart a 全てに設定
     for (var i = 0; i < btn.length; i++) {
         btn[i].addEventListener('click', function(e) {
@@ -51,10 +46,8 @@ if (btn && 0 < btn.length) {
             foo.style.display = "none";
             id = e.target.hash; // idの取得
             id = id.slice(1); // #を削る
-            //    console.log(" : ael_yesno_chart : [ click ] " + id );
             //  idのセレクタを取得
             var tar = document.getElementById(id);
-            //  console.log( tar );
             tar.style.opacity = 0; // 透明化
             tar.style.display = "block"; // 表示する( しないとリンク飛べない )
             ync_fadeIn(tar, 100);
