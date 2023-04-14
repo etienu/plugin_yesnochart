@@ -4,6 +4,9 @@
 //  YSE・NOチャート　疑似プラグイン
 //  関数、ショートコード登録
 //
+//  YESNOチャート参考記事
+//  https://ponhiro.com/yesno-chart/
+//
 //--------------------------------------------------------
 //
 //  ショートコード一覧
@@ -40,7 +43,6 @@
 //      パス取得関数
 //
 //--------------------------------------------
-//if ( !function_exists( 'get_Plugin_URL' ) ):
 function get_Plugin_URL() {
     //  1.テーマのURLを取得する
     //  http://xxxxx/wp-content/themes/テーマ名
@@ -54,7 +56,6 @@ function get_Plugin_URL() {
     //  5.テーマURL+プラグインパスを返す
     return $fpath."/".$plugindir;
 }
-//endif;
 
 //--------------------------------------------
 //
@@ -68,7 +69,6 @@ function insert_yesnochart_css() {
 if (is_page() || is_single()) {
         if (have_posts()) :
             echo '<link rel="stylesheet" href="'.get_Plugin_URL().'/YesNoChart.css" />';
-//            echo '<link rel="stylesheet" href="'.$fpath.'/'.$fdir.'/YesNoChart.css" />';
         endif;
         rewind_posts();
     }
@@ -85,24 +85,20 @@ if (is_page() || is_single()) {
 //  yn-chart a ボタン
 //  クリックしたら現在のdivを非表示にし、指定idをフェードイン
 //--------------------------------------------------------
-if ( !function_exists( 'p_yesno_chart' ) ):
     //  javascript element版
-    function ael_yesno_chart() {
+    function insert_yesnochart_js() {
         $fpath = get_Plugin_URL();
         echo '<script type="text/javascript" src="'.$fpath.'/yesnochart.js"></script>';
     }
     // jQuery版
-    function jq_yesno_chart() {
+    function insert_yesnochart_jq() {
         $fpath = get_Plugin_URL();
         echo '<script type="text/javascript" src="'.$fpath.'/yesnochart_JQ.js"></script>';
     }
     //  フッターへ記述する
-    add_action( 'wp_print_footer_scripts', 'ael_yesno_chart' );
-//    add_action( 'wp_print_footer_scripts', 'jq_yesno_chart' );
-endif;
+    add_action( 'wp_print_footer_scripts', 'insert_yesnochart_js' );
+//    add_action( 'wp_print_footer_scripts', 'insert_yesnochart_jq' );
 
-
-//  固定の文言は変数にして一か所で修正可能にする
 
 //--------------------------------------------------------
 //
@@ -136,32 +132,8 @@ add_shortcode('LoadYesNoChart', 'func_LoadYesNoChart');
 function func_LoadYesNoChartPHPFile( $atts ){
     extract( shortcode_atts( array( 'file' => ''), $atts ));
 
-//    $dir = "./wp-content/themes/etienublog/"; //  成功する
-    //$dir = __DIR__."/../";
     $dir = __DIR__."/";
-    //$dir = "";
-//    $filelist = glob($dir . '*');
-/*
-    foreach ($filelist as $file) {
-        if (is_file($file)) {
-            print($file);
-            echo nl2br("\n");
-        }
-    }    
-*/
     $url = $dir.$atts['file'];
-
-    //$url = get_template_directory_uri().'/'.$atts['file'];
-/*
-    // URLの場合
-    $http_header = get_headers($url);
-    echo $http_header[0]."<br>";
-    //  'HTTP/1.1 200 OK' 200 部分一致
-    if ( strpos($http_header[0],'200') === false ) {
-        echo "存在しません";
-        return false;
-    }
- */
 
     if (!file_exists($url)) {
         echo 'ファイルがない : '.$url."<br>";
@@ -171,13 +143,6 @@ function func_LoadYesNoChartPHPFile( $atts ){
     //  読み込んだ内容の出力
     ob_start();
     include $url;
-    //$file_content = ob_get_contents();//clean();
-//    $file_content = ob_get_clean();
-//    echo $file_content;
-//    echo do_shortcode( $file_content );
-
-    //ob_get_clean();
-
     return do_shortcode(ob_get_clean() );
 }
 add_shortcode( 'LoadYesNoChartFile', 'func_LoadYesNoChartPHPfile' );
@@ -233,7 +198,6 @@ function func_YesNoChart_Img( $atts ){
     //  フォルダ直下
     }else if( array_key_exists( 'i' , $atts ) ){
         $nowdir = get_Plugin_URL();
-//        $nowdir = get_template_directory_uri()."/".basename(dirname(__FILE__));
         echo '<figure class="wp-block-image ync-aligncenter size-full"><img src="'.$nowdir."/".$atts['i'].'" alt=""></figure>';
     }
 }
@@ -246,8 +210,9 @@ function func_YesNoChart_Img( $atts ){
 //
 //  画像を表示する場合のパス
 //  img  : wp-contentまで省略( http://～/wp-content/)以降を入力。自由なフォルダを指定可能
-//  imgu : メディアライブラリまで省略( http://～/wp-content/upload/)以降を入力。ワードプレスで完結可能
-//  imgt : テーマまで省略( http://～/wp-content/themes/現在のテーマ/)以降を入力。大量にある場合の直接指定に便利
+//  imgu : メディアライブラリまで省略( http://～/wp-content/upload/)以降を入力。
+//  imgt : テーマまで省略( http://～/wp-content/themes/現在のテーマ/)以降を入力。
+//  i : プラグイン直下
 //--------------------------------------------------------
 function func_YesNoChart_Q( $i_first = false, $atts, $content = null ){
     extract( shortcode_atts( array( 'id' => '', 'title' => '', 'img' => '','imgu' => '','imgt' => '','i' => '',), $atts ) );
@@ -358,48 +323,15 @@ add_shortcode('YesNo-R', 'YesNoChart_Result');
 //
 //      投稿記事/固定ページ メタボックス追加
 //
-//      カスタムCSSの表示
-//      ※ページ個別にCSSが必用な場合使用
-//
 //--------------------------------------------------------
-/*
-add_action('admin_menu', 'custom_css_hooks');
-add_action('save_post', 'save_custom_css');
-add_action('wp_head','insert_custom_css');
-function custom_css_hooks() {
-    add_meta_box('custom_css', 'Custom CSS', 'custom_css_input', 'post', 'normal', 'high');
-    add_meta_box('custom_css', 'Custom CSS', 'custom_css_input', 'page', 'normal', 'high');
-}
-
-function custom_css_input() {
-    global $post;
-    echo '<input type="hidden" name="custom_css_noncename" id="custom_css_noncename" value="'.wp_create_nonce('custom-css').'" />';
-    echo '<textarea name="custom_css" id="custom_css" rows="5" cols="30" style="width:100%;">'.get_post_meta($post->ID,'_custom_css',true).'</textarea>';
-}
-
-function save_custom_css($post_id) {
-    if (!wp_verify_nonce($_POST['custom_css_noncename'], 'custom-css')) return $post_id;
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return $post_id;
-    $custom_css = $_POST['custom_css'];
-    update_post_meta($post_id, '_custom_css', $custom_css);
-}
-
-function insert_custom_css() {
-    if (is_page() || is_single()) {
-        if (have_posts()) : while (have_posts()) : the_post();
-            echo '<style type="text/css">'.get_post_meta(get_the_ID(), '_custom_css', true).'</style>';
-        endwhile; endif;
-        rewind_posts();
-    }
-}
-*/
-
 //--------------------------------------------------------
 //
 //  noindex設定の表示と編集
 //
 //  ※ページ個別にnoindex設定が必用で、関連するプラグインがない場合使用
 //
+//  参考記事
+//  https://tcd-theme.com/2021/07/wordpress-noindex.html
 //--------------------------------------------------------
 
 // メタボックスの追加
