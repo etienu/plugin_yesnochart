@@ -88,12 +88,12 @@ if (is_page() || is_single()) {
     //  javascript element版
     function insert_yesnochart_js() {
         $fpath = get_Plugin_URL();
-        echo '<script type="text/javascript" src="'.$fpath.'/yesnochart.js"></script>';
+        echo '<script type="text/javascript" src="'.$fpath.'/YesNoChart.js"></script>';
     }
     // jQuery版
     function insert_yesnochart_jq() {
         $fpath = get_Plugin_URL();
-        echo '<script type="text/javascript" src="'.$fpath.'/yesnochart_JQ.js"></script>';
+        echo '<script type="text/javascript" src="'.$fpath.'/YesNoChart_JQ.js"></script>';
     }
     //  フッターへ記述する
     add_action( 'wp_print_footer_scripts', 'insert_yesnochart_js' );
