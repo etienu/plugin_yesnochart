@@ -1,0 +1,289 @@
+<pre>
+<h1>YesNoChart(疑似)プラグイン </h1>
+<h2>説明書 </h2>
+
+1.インストールする 
+
+2.使用する 
+
+3.サンプル 
+
+4.ショートコード一覧 
+
+5.その他仕様 
+
+6.アンインストール 
+
+
+<!-------------------------------------------->
+<hr>
+<h2>1.インストールする </h2>
+<h3>1-1.解凍 </h3>
+YesNoChart.zipを解凍し、テーマフォルダ直下にコピーします。 
+例 ） 
+wp-content/themes/etienublog/に解凍 
+wp-content/themes/etienublog/YesNoChartフォルダが作成されます 
+
+<h3>1-2.設定 </h3>
+function.phpの最後に一文を追記します 
+include "YesNoChart/function_YesNoChart.php"; 
+
+※フォルダの位置はテーマ直下にして下さい 
+もしくは、移動したい場合、コードを編集できるのであれば 
+指定してあるフォルダ名を書き換えてください。 
+
+php中で自動的にcssの読み込みも行っています。 
+
+以上です。 
+
+
+<hr>
+<!-------------------------------------------->
+<h2>2.使用する </h2>
+記事・固定ページにショートコードを記述する事で使用します。 
+
+<h3>2-1個別作成：ページに直接記述する </h3>
+記事・固定ページ中にカスタムHTML、またはショートコードを追加します。 
+
+プラグインにて追加されたショートコードを記述していきます。 
+
+ページを表示してバグがなければ完成です。 
+
+<h3>2-2使いまわす：固定ページに作成して読み込む </h3>
+固定ページを作成し、カスタムHTML、またはショートコードを追加します。 
+
+プラグインにて追加されたショートコードを記述していきます。 
+
+ページ保存時に非表示設定をします。 
+
+他プラグイン等でnoindexをしていない場合、このプラグインで追加されるnoindex設定にチェックを入れてください。表示されていいない場合は、記事の設定→パネル→追加の「インデックス設定」をONにしてください。 
+
+ページを表示してバグがない事を確認します。 
+
+読み込みたい記事中で、 
+
+[LoadYesNoChart Slug="ページスラッグ"] 
+
+と記述します。 
+
+エラーが発生しなければ完成です。 
+
+<hr>
+
+<h3>2-3使いまわす：テキストファイル読み込み </h3>
+
+YesNoChartフォルダ以下の自由な場所にファイルを作成します。 
+
+コードはJISではなくUTF8で保存してください。 
+
+例 )  YesNoChart/sample/test.txt 
+
+  
+
+読み込みたい記事中で 
+
+[LoadYesNoChartFile file="ファイル名"] 
+
+※上記のファイルだとsample/test.txtと指定 
+
+エラーが発生しなければ完成です。 
+
+
+<hr>
+<!-------------------------------------------->
+<h2>3.サンプル </h2>
+YesNoChart直下sampleフォルダに入っています。 
+
+
+<b>カスタムHTMLorショートコード</b>
+
+[YesNo-Chart tag="診断" title="タイトル" ex="補足説明"] 
+
+[YesNo-Q1 id="q1" title="一問目:タイトル" imgt="yesnochart/sample/01.jpg"] 
+  [YesNo-A href="#q2-1" text="選択肢1"] 
+  [YesNo-A href="#q2-2" text="選択肢2"] 
+[/YesNo-Q1] 
+
+[YesNo-Q id="q2-1" title="二問目：2-1タイトル" imgt="yesnochart/sample/02-1.jpg"] 
+  [YesNo-A href="#q3-a-1" text="選択肢1"] 
+  [YesNo-A href="#q3-a-2" text="選択肢2"] 
+[/YesNo-Q] 
+
+[YesNo-Q id="q2-2" title="二問目：2-2タイトル" i="sample/02-2.jpg"] 
+  [YesNo-A href="#q3-b-1" text="選択肢1"] 
+  [YesNo-A href="#q3-b-2" text="選択肢2"] 
+[/YesNo-Q] 
+
+[YesNo-Q id="q3-a-1" title="三問目：3-a-1タイトル" i="sample/03-a-1.jpg"] 
+  [YesNo-A href="#result-1" text="選択肢1"] 
+  [YesNo-A href="#result-2" text="選択肢2"] 
+[/YesNo-Q] 
+
+[YesNo-Q id="q3-a-2" title="三問目：3-a-2タイトル" i="sample/03-a-2.jpg"] 
+  [YesNo-A href="#result-3" text="選択肢1"] 
+  [YesNo-A href="#result-4" text="選択肢2"] 
+[/YesNo-Q] 
+
+[YesNo-Q id="q3-b-1" title="三門目：3-b-1タイトル" i="sample/03-b-1.jpg"] 
+  [YesNo-A href="#result-5" text="選択肢1"] 
+  [YesNo-A href="#result-6" text="選択肢2"] 
+[/YesNo-Q] 
+
+[YesNo-Q id="q3-b-2" title="三門目：3-b-2タイトル" i="sample/03-b-2.jpg"] 
+  [YesNo-A href="#result-7" text="選択肢1"] 
+  [YesNo-A href="#result-8" text="選択肢2"] 
+[/YesNo-Q] 
+
+
+[YesNo-R id="result-1" title="診断結果" imgt="yesnochart/sample/r01.png"] 
+結果1です<br> 
+結果1です 
+[/YesNo-R] 
+
+[YesNo-R id="result-2" title="診断結果" imgt="yesnochart/sample/r01.png"] 
+結果2です<br> 
+結果2です 
+[/YesNo-R] 
+
+[YesNo-R id="result-3" title="診断結果" imgt="yesnochart/sample/r02.png"] 
+結果3です<br> 
+結果3です 
+[/YesNo-R] 
+  
+
+[YesNo-R id="result-4" title="診断結果" imgt="yesnochart/sample/r02.png"] 
+結果4です<br> 
+結果4です 
+[/YesNo-R] 
+
+  
+
+[YesNo-R id="result-5" title="診断結果" imgt="yesnochart/sample/r03.png"] 
+結果5です<br> 
+結果5です 
+[/YesNo-R] 
+
+[YesNo-R id="result-6" title="診断結果" imgt="yesnochart/sample/r03.png"] 
+結果6です<br> 
+結果6です 
+[/YesNo-R] 
+
+[YesNo-R id="result-7" title="診断結果" imgt="yesnochart/sample/r04.png"] 
+結果7です<br> 
+結果7です 
+[/YesNo-R] 
+
+[YesNo-R id="result-8" title="診断結果" imgt="yesnochart/sample/r04.png"] 
+結果8です<br> 
+結果8です 
+[/YesNo-R] 
+
+[/YesNo-Chart] 
+
+ 
+※参考記事にあった内容ほぼそのままです。 
+ 
+
+<hr>
+<!-------------------------------------------->
+<h2>4.ショートコード一覧 </h2>
+固定記事の読み込み 
+
+[LoadYesNoChart slug="固定ページのスラッグ"] 
+  固定ページにショートコードでYesNoChartを書き、その固定ページを読み込む 
+
+
+テキストファイルの読み込み 
+
+[LoadYesNoChartFile file="ファイル名"] 
+  フォルダ直下にショートコードを記述したテキストファイルを作成し 
+  そのファイルを読み込む 
+
+
+YesNoチャートの大枠 
+
+[YesNo-Chart tag="タグ名" title="タイトル名" ex="補足説明"] 
+    問題を記述 
+[/yesNo-Chart] 
+囲っている範囲をYesNoチャートにします 
+
+
+問題 Question 一問目( 表示用クラスが付与されます ) 
+
+[YesNo-Q1 id="href用固有ID" title="問題名" img="画像URL"] 
+    選択肢を記述 
+[/YesNo-Q1] 
+
+ 
+
+問題 二問目以降 
+
+[YesNo-Q id="href用固有ID" title="問題名" img="画像URL"] 
+    選択肢を記述 
+[/YesNo-Q] 
+
+ 
+
+選択肢 ansower 
+
+[YesNo-A href="ジャンプ先固有ID" text="選択肢名"] 
+ 
+
+結果 Result 
+
+[YesNo-R id="href用固有ID" title="診断結果名" img="画像URL" 
+     btnhref="ボタンのa href" (省略時"#q1") 
+     btntxt ="ボタン名" (省略時"もう一度診断する")] 
+      <p>結果の文章をを記述します。</p> 
+[/YesNo-R] 
+
+ 
+
+引数のimgは簡易化する為に別パターンを指定できます 
+
+img : ワードプレスのwp-content/以下のファイルを指定できます 
+imgu: メディアライブラリのupload/以下のファイルを指定できます 
+imgt: theme/現在使用中のテーマ/以下のファイルを指定できます 
+i : YesNoChart/以下のファイルを指定できます 
+
+
+ワードプレスに読み込まれているメディアライブラリのファイルを使用したい場合 
+imguを使用、URLは記事にメディアライブラリから画像を埋め込み 
+その画像をHTMLに変換して現れるURLです 
+
+
+YesNoChartフォルダ内で完結したい場合 
+Iを使用します 
+
+
+テーマフォルダ内の別フォルダから画像を読み込みたい場合 
+Imgtを使用します 
+
+ 
+<hr>
+<!-------------------------------------------->
+<h2>5.その他の仕様 </h2>
+・インストールすると、記事編集時にNoIndex設定が表示されます 
+
+表示されない場合は設定→パネル→追加→インデックス設定をON
+
+　これは、YesNoChart用に固定ページを作った場合に
+
+検索サイトに表示されないためのものです。
+
+
+<hr>
+<!-------------------------------------------->
+<h2>6.アンインストール方法 </h2>
+・記事から記述を消します 
+
+・function.phpから一文を消します 
+
+include "YesNoChart/function_YesNoChart.php"; 
+
+・フォルダを削除します 
+
+  
+
+以上です。
+</pre>
