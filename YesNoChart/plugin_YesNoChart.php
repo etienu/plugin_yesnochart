@@ -100,6 +100,8 @@ if (is_page() || is_single()) {
 //    add_action( 'wp_print_footer_scripts', 'insert_yesnochart_jq' );
 
 
+// テキストファイルを読み込んだ際のディレクトリ保存
+$ync_filedir = "";
 //--------------------------------------------------------
 //
 //  ショートコード登録
@@ -132,9 +134,16 @@ add_shortcode('LoadYesNoChart', 'func_LoadYesNoChart');
 function func_LoadYesNoChartPHPFile( $atts ){
     shortcode_atts( array( 'file' => ''), $atts );
 
+    global $ync_filedir;
     $dir = __DIR__."/";
+//  ディレクトリ+指定ファイル名
     $url = $dir.$atts['file'];
-
+    //  指定ファイル名にフォルダがあれば/で分離する
+    $exp = explode("/", $atts['file']);
+    //  分離に成功していれば保存
+    if( 0 < count( $exp ) ){
+        $ync_filedir = $exp[0];
+    }
     if (!file_exists($url)) {
         echo 'ファイルがない : '.$url."<br>";
         return false;
@@ -185,7 +194,7 @@ add_shortcode('YesNo-Chart', 'YesNoChart_Frame');
 //--------------------------------------------------------
 function func_YesNoChart_Img( $atts ){
     shortcode_atts( array( 'img' => '','imgu' => '','imgt' => '','i' => '',), $atts );
-    //  img
+    global $ync_filedir;
     //  コンテンツのフォルダ
     if( array_key_exists( 'img'  , $atts ) ){
         echo '<figure class="wp-block-image ync-aligncenter size-full"><img src="'.content_url().'/'.$atts['img'].'" alt=""></figure>';
@@ -198,6 +207,8 @@ function func_YesNoChart_Img( $atts ){
     //  フォルダ直下
     }else if( array_key_exists( 'i' , $atts ) ){
         $nowdir = get_Plugin_URL();
+        // 保存フォルダ名が空でなければ基準にする
+        if( $ync_filedir !== "" ) $nowdir .= "/".$ync_filedir;
         echo '<figure class="wp-block-image ync-aligncenter size-full"><img src="'.$nowdir."/".$atts['i'].'" alt=""></figure>';
     }
 }
