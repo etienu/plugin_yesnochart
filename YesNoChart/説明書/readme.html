@@ -21,18 +21,14 @@
 <h3>1-1.解凍 </h3>
 YesNoChart.zipを解凍し、テーマフォルダ直下にコピーします。 
 例 ） 
-wp-content/themes/etienublog/に解凍 
-wp-content/themes/etienublog/YesNoChartフォルダが作成されます 
+wp-content/themes/サイト名/に解凍 
+wp-content/themes/サイト名/YesNoChartフォルダが作成されます 
 
 <h3>1-2.設定 </h3>
 function.phpの最後に一文を追記します 
-include "YesNoChart/function_YesNoChart.php"; 
+include "YesNoChart/plugin_YesNoChart.php"; 
 
-※フォルダの位置はテーマ直下にして下さい 
-もしくは、移動したい場合、コードを編集できるのであれば 
-指定してあるフォルダ名を書き換えてください。 
-
-php中で自動的にcssの読み込みも行っています。 
+php中で自動的にcss、jsの読み込みも行っています。 
 
 以上です。 
 
@@ -71,6 +67,7 @@ php中で自動的にcssの読み込みも行っています。
 <hr>
 
 <h3>2-3使いまわす：テキストファイル読み込み </h3>
+基本的にはこちらを推奨。
 
 YesNoChartフォルダ以下の自由な場所にファイルを作成します。 
 
@@ -97,91 +94,56 @@ YesNoChart直下sampleフォルダに入っています。
 
 <b>カスタムHTMLorショートコード</b>
 
-[YesNo-Chart tag="診断" title="タイトル" ex="補足説明"] 
+[YesNo-Chart tag="診断" title="クイズ" ex="言語名のおはなし"]
+ [YesNo-Q1 id="q1" title="一問目：WordPressって何？" i="01.jpg"]
+  [YesNo-A href="#result-1" text="言葉によって圧力をかけるテクニック"]
+  [YesNo-A href="#q2-2" text="サイトやブログが作れるコンテンツ管理システム(CMS)"]
+ [/YesNo-Q1]
 
-[YesNo-Q1 id="q1" title="一問目:タイトル" imgt="yesnochart/sample/01.jpg"] 
-  [YesNo-A href="#q2-1" text="選択肢1"] 
-  [YesNo-A href="#q2-2" text="選択肢2"] 
-[/YesNo-Q1] 
+ [YesNo-Q id="q2-2" title="二問目：HTMLって何の略？" i="02.jpg"]
+  [YesNo-A href="#q3-a-1" text="Hyper Text Markup Langauge"]
+  [YesNo-A href="#result-2" text="HaTeMaLu"]
+ [/YesNo-Q]
 
-[YesNo-Q id="q2-1" title="二問目：2-1タイトル" imgt="yesnochart/sample/02-1.jpg"] 
-  [YesNo-A href="#q3-a-1" text="選択肢1"] 
-  [YesNo-A href="#q3-a-2" text="選択肢2"] 
-[/YesNo-Q] 
+ [YesNo-Q id="q3-a-1" title="三問目：Java Scriptを発音すると" i="03.jpg"]
+  [YesNo-A href="#result-3" text="ジャワ スクリプト"]
+  [YesNo-A href="#q4-1" text="ジャバ スクリプト"]
+ [/YesNo-Q]
 
-[YesNo-Q id="q2-2" title="二問目：2-2タイトル" i="sample/02-2.jpg"] 
-  [YesNo-A href="#q3-b-1" text="選択肢1"] 
-  [YesNo-A href="#q3-b-2" text="選択肢2"] 
-[/YesNo-Q] 
-
-[YesNo-Q id="q3-a-1" title="三問目：3-a-1タイトル" i="sample/03-a-1.jpg"] 
-  [YesNo-A href="#result-1" text="選択肢1"] 
-  [YesNo-A href="#result-2" text="選択肢2"] 
-[/YesNo-Q] 
-
-[YesNo-Q id="q3-a-2" title="三問目：3-a-2タイトル" i="sample/03-a-2.jpg"] 
-  [YesNo-A href="#result-3" text="選択肢1"] 
-  [YesNo-A href="#result-4" text="選択肢2"] 
-[/YesNo-Q] 
-
-[YesNo-Q id="q3-b-1" title="三門目：3-b-1タイトル" i="sample/03-b-1.jpg"] 
-  [YesNo-A href="#result-5" text="選択肢1"] 
-  [YesNo-A href="#result-6" text="選択肢2"] 
-[/YesNo-Q] 
-
-[YesNo-Q id="q3-b-2" title="三門目：3-b-2タイトル" i="sample/03-b-2.jpg"] 
-  [YesNo-A href="#result-7" text="選択肢1"] 
-  [YesNo-A href="#result-8" text="選択肢2"] 
-[/YesNo-Q] 
+ [YesNo-Q id="q4-1" title="四問目：PHPのPはPHPのPです" i="04.jpg"]
+  [YesNo-A href="#result-4" text="そんなわけあるか"]
+  [YesNo-A href="#result-5" text="残念だがそのようだ"]
+ [/YesNo-Q]
 
 
-[YesNo-R id="result-1" title="診断結果" imgt="yesnochart/sample/r01.png"] 
-結果1です<br> 
-結果1です 
-[/YesNo-R] 
+ [YesNo-R id="result-1" title="診断結果" i="r01.png"]
+圧力から解放される旅に出よう<br>
+- Words Press - 言葉の圧力 END<br>
+ [/YesNo-R]
 
-[YesNo-R id="result-2" title="診断結果" imgt="yesnochart/sample/r01.png"] 
-結果2です<br> 
-結果2です 
-[/YesNo-R] 
+ [YesNo-R id="result-2" title="診断結果" i="r02.png"]
+HaTeMaLuとはなんだろうか、そういいながらあなたは眠りについた。<br>
+- HaTeMaLu - 新たなる疑問 END<br>
+ [/YesNo-R]
 
-[YesNo-R id="result-3" title="診断結果" imgt="yesnochart/sample/r02.png"] 
-結果3です<br> 
-結果3です 
-[/YesNo-R] 
-  
+ [YesNo-R id="result-3" title="診断結果" i="r03.jpg"]
+そうだ、ジャワティ飲もう<br>
+- Jawa Tea - じゃわじゃわタイム END<br>
+ [/YesNo-R]
 
-[YesNo-R id="result-4" title="診断結果" imgt="yesnochart/sample/r02.png"] 
-結果4です<br> 
-結果4です 
-[/YesNo-R] 
+ [YesNo-R id="result-4" title="診断結果" i="r04.png"]
+PHPのPがPHPのPなら、PHP(P(P(P(P...)HP)HP)HP)H...うっ頭が<br>
+- 再帰的頭字語 - END<br>
+ [/YesNo-R]
 
-  
-
-[YesNo-R id="result-5" title="診断結果" imgt="yesnochart/sample/r03.png"] 
-結果5です<br> 
-結果5です 
-[/YesNo-R] 
-
-[YesNo-R id="result-6" title="診断結果" imgt="yesnochart/sample/r03.png"] 
-結果6です<br> 
-結果6です 
-[/YesNo-R] 
-
-[YesNo-R id="result-7" title="診断結果" imgt="yesnochart/sample/r04.png"] 
-結果7です<br> 
-結果7です 
-[/YesNo-R] 
-
-[YesNo-R id="result-8" title="診断結果" imgt="yesnochart/sample/r04.png"] 
-結果8です<br> 
-結果8です 
-[/YesNo-R] 
-
-[/YesNo-Chart] 
+ [YesNo-R id="result-5" title="診断結果" i="r05.png"]
+PHPは(PHP : Hypertext Preprocessor)です<br>
+お疲れさまでした。<br>
+- Clear -
+ [/YesNo-R]
+[/YesNo-Chart]
 
  
-※参考記事にあった内容ほぼそのままです。 
  
 
 <hr>
@@ -244,7 +206,7 @@ YesNoチャートの大枠
 img : ワードプレスのwp-content/以下のファイルを指定できます 
 imgu: メディアライブラリのupload/以下のファイルを指定できます 
 imgt: theme/現在使用中のテーマ/以下のファイルを指定できます 
-i : YesNoChart/以下のファイルを指定できます 
+i : YesNoChart/以下のファイルを指定できます。テキストファイルを読み込んだ場合は、テキストファイルのフォルダが基準なります。
 
 
 ワードプレスに読み込まれているメディアライブラリのファイルを使用したい場合 
@@ -253,11 +215,11 @@ imguを使用、URLは記事にメディアライブラリから画像を埋め�
 
 
 YesNoChartフォルダ内で完結したい場合 
-Iを使用します 
+iを使用します 
 
 
 テーマフォルダ内の別フォルダから画像を読み込みたい場合 
-Imgtを使用します 
+imgtを使用します 
 
  
 <hr>
@@ -279,7 +241,7 @@ Imgtを使用します
 
 ・function.phpから一文を消します 
 
-include "YesNoChart/function_YesNoChart.php"; 
+include "YesNoChart/plugin_YesNoChart.php"; 
 
 ・フォルダを削除します 
 
