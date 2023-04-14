@@ -111,7 +111,7 @@ if (is_page() || is_single()) {
 //
 //--------------------------------------------------------
 function func_LoadYesNoChart( $atts ){
-    extract( shortcode_atts( array( 'slug' => '', ), $atts ) );
+    shortcode_atts( array( 'slug' => '', ), $atts );
     //固定ページのスラッグ名
     $page_id = get_page_by_path( $atts['slug'] );
     $page = get_post( $page_id );
@@ -130,7 +130,7 @@ add_shortcode('LoadYesNoChart', 'func_LoadYesNoChart');
 //
 //--------------------------------------------------------
 function func_LoadYesNoChartPHPFile( $atts ){
-    extract( shortcode_atts( array( 'file' => ''), $atts ));
+    shortcode_atts( array( 'file' => ''), $atts );
 
     $dir = __DIR__."/";
     $url = $dir.$atts['file'];
@@ -155,11 +155,11 @@ add_shortcode( 'LoadYesNoChartFile', 'func_LoadYesNoChartPHPfile' );
 //
 //--------------------------------------------------------
 function YesNoChart_Frame( $atts, $content = null ){
-    extract( shortcode_atts( array(
+    shortcode_atts( array(
         'tag' => '',
         'title' => '',
         'ex' => '',
-    ), $atts ) );
+    ), $atts );
 
     ob_start();
     echo '<div class="yn-chart">';
@@ -184,7 +184,7 @@ add_shortcode('YesNo-Chart', 'YesNoChart_Frame');
 //
 //--------------------------------------------------------
 function func_YesNoChart_Img( $atts ){
-    extract( shortcode_atts( array( 'img' => '','imgu' => '','imgt' => '','i' => '',), $atts ) );
+    shortcode_atts( array( 'img' => '','imgu' => '','imgt' => '','i' => '',), $atts );
     //  img
     //  コンテンツのフォルダ
     if( array_key_exists( 'img'  , $atts ) ){
@@ -215,7 +215,7 @@ function func_YesNoChart_Img( $atts ){
 //  i : プラグイン直下
 //--------------------------------------------------------
 function func_YesNoChart_Q( $i_first = false, $atts, $content = null ){
-    extract( shortcode_atts( array( 'id' => '', 'title' => '', 'img' => '','imgu' => '','imgt' => '','i' => '',), $atts ) );
+    shortcode_atts( array( 'id' => '', 'title' => '', 'img' => '','imgu' => '','imgt' => '','i' => '',), $atts );
 
     //  "Q1"指定された場合、一個目の表示クラスを指定
     if( $i_first ){
@@ -266,7 +266,7 @@ add_shortcode('YesNo-Q', 'YesNoChart_Q');
 //
 //--------------------------------------------------------
 function YesNoChart_Answer( $atts, $content = null ){
-    extract( shortcode_atts( array( 'href' => '', 'text' => '',), $atts ) );
+    shortcode_atts( array( 'href' => '', 'text' => '',), $atts );
     if( $atts['href'] ){
         echo '<li><a href="'.$atts['href'].'">'.$atts['text'].'</a></li>';
     }
@@ -282,9 +282,9 @@ add_shortcode('YesNo-A', 'YesNoChart_Answer');
 //
 //--------------------------------------------------------
 function YesNoChart_Result( $atts, $content = null ){
-    extract( shortcode_atts( array( 'id' => '',
+    shortcode_atts( array( 'id' => '',
         'img' => '','imgu' => '','imgt' => '','i' => '',
-        'title' => '', 'btnhref' => '', 'btntxt' => '',), $atts ) );
+        'title' => '', 'btnhref' => '', 'btntxt' => '',), $atts );
     
     echo '<div id="'.$atts['id'].'">';
     //  画像
