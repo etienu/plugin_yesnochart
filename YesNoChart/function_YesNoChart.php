@@ -330,7 +330,8 @@ add_shortcode('YesNo-R', 'YesNoChart_Result');
 //
 //  ※ページ個別にnoindex設定が必用で、関連するプラグインがない場合使用
 //
-//  参考記事
+//  引用元
+//  WordPressの特定ページ・サイト全体でインデックスブロック（noindex）する方法まとめ
 //  https://tcd-theme.com/2021/07/wordpress-noindex.html
 //--------------------------------------------------------
 
