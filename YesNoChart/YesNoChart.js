@@ -1,10 +1,8 @@
-/**
- * フェードイン
- * @param {Element} element 適用する要素
- * @param {number} [time=400] 効果時間（ミリ秒で指定）
- * @param {Function} [callback] 完了後のコールバック関数
- * @return {Element} 適用した要素を返す
- */
+//------------------------------------------------
+// 引用元
+// ｢脱jQuery｣ 生JSで.fadeIn()のように要素をフェードインで表示する
+// https://spyweb.media/2018/01/12/jquery-fadein-pure-javascript/
+//------------------------------------------------
 var ync_fadeIn = function(node, duration) {
     // display: noneでないときは何もしない
     //if (getComputedStyle(node).display !== 'none') return;
@@ -36,6 +34,11 @@ var ync_fadeIn = function(node, duration) {
     });
 };
 
+//------------------------------------------------
+// 引用元
+// 【診断に使える】YES・NOチャートをWordPressで作る
+// https://ponhiro.com/yesno-chart/
+//------------------------------------------------
 var btn = document.querySelectorAll('.yn-chart a');
 if (btn && 0 < btn.length) {
     //console.log(" : ael_yesno_chart : [ load ] " + btn.length );
